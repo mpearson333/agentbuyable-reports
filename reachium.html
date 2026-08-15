@@ -18,6 +18,36 @@
   "Canonical HTML Dashboard Template" section of skill1_searchatlas_execution_guide.md.
 
   CHANGE LOG:
+  2026-08-15: Added a "Test 3: Head-to-Head Comparison" card (Design Standard #15),
+  directly after Most-Cited Domains and before Prompts Tested, giving the comparison
+  prompt its own full per-platform results the same way Test 1 and Test 2 already
+  get elsewhere in the report. Previously the comparison prompt was only disclosed
+  as a prompt in the Prompts Tested card, with no results card of its own; real,
+  specific findings (e.g. a wrong-domain citation) were easy to miss, buried only in
+  the Sentiment/Top Performing Topic cards' prose. New warn,
+  Mixed, and <li><span class="prompt-label">Perplexity: Favorable to Reachium</span><span class="prompt-quote">Called Reachium the safer choice on account safety and its API-based architecture, recommended Expandi only for teams wanting an established, browser-automation tool with a larger ecosystem.</span></li>
+        <li><span class="prompt-label">Gemini: Wrong domain cited</span><span class="prompt-quote">Cited reachium.com, not the real domain, and described Reachium as a stripped-down tool built for solopreneurs, a mismatch with its actual scale and client base.</span></li>
+        <li><span class="prompt-label">ChatGPT: Wrong domain cited</span><span class="prompt-quote">Also cited reachium.com instead of reachium.io, framed Reachium as the simpler, beginner-friendly option against Expandi’s more advanced feature set.</span></li> tokens, see the Token Reference
+  block below. Caught by the account owner on the real Reachium report.
+  2026-08-15 (correction, same day): the The fastest path from “described differently by every AI platform” to “recommended by default” starts with fixing the identity and crawler access gaps above, then compounding that foundation with ongoing content and authority building, ORACLE's bi-weekly visibility audits keep pace with how fast this competitive field is moving. Here is how that maps against the other two tiers. guidance below originally
+  called for naming all three tiers' cadences together (monthly/bi-weekly/daily) as a
+  cross-tier selling point. Corrected after the account owner caught it on the real
+  Reachium report: narrating all three tiers' cadences in the shared intro paragraph
+  reads like all three are being pitched as equally live options, undercutting the one
+  recommendation the report is built to make. The intro paragraph must now reference
+  only the recommended tier's own cadence. See the corrected The fastest path from “described differently by every AI platform” to “recommended by default” starts with fixing the identity and crawler access gaps above, then compounding that foundation with ongoing content and authority building, ORACLE's bi-weekly visibility audits keep pace with how fast this competitive field is moving. Here is how that maps against the other two tiers. entry
+  in the Token Reference block below.
+  2026-08-15: Added a new The fastest path from “described differently by every AI platform” to “recommended by default” starts with fixing the identity and crawler access gaps above, then compounding that foundation with ongoing content and authority building, ORACLE's bi-weekly visibility audits keep pace with how fast this competitive field is moving. Here is how that maps against the other two tiers. paragraph element directly under
+  The AEO Growth Plan heading, before the tier cards, mirroring the PDF template's
+  existing growth_plan_intro field (which the dashboard previously had no
+  equivalent for, it went straight from the header tagline into the tier cards).
+  Also documented the new bullet-ordering convention for ORACLE/ARCHITECT
+  (content-and-authority items first, ACP/UCP last, NEO exempt) and the
+  requirement that ARCHITECT's content bullet state its count explicitly (10+
+  AEO content pieces/mo). See the new The fastest path from “described differently by every AI platform” to “recommended by default” starts with fixing the identity and crawler access gaps above, then compounding that foundation with ongoing content and authority building, ORACLE's bi-weekly visibility audits keep pace with how fast this competitive field is moving. Here is how that maps against the other two tiers. and updated
+  {{TIER_*_BULLETS_HTML}} entries in the Token Reference block below, and
+  skill1_searchatlas_execution_guide.md's Growth Plan / Reporting Structure
+  section for the full reasoning. First applied on the real Reachium audit.
   2026-08-11: Added an explicit sort-order rule to the <li><span class="domain">expandi.io</span><span class="count">3 citations</span></li>
         <li><span class="domain">octopuscrm.io</span><span class="count">3 citations</span></li>
         <li><span class="domain">dripify.io</span><span class="count">2 citations</span></li>
@@ -138,6 +168,29 @@
                                  in skill1_searchatlas_execution_guide.md (under Step 3), not
                                  from researcher assumption, except in the documented
                                  researcher-knowledge fallback case for that rule.
+
+  warn         NEW as of 2026-08-15 (Design Standard #15). ok / warn / info,
+  Mixed         reflecting the overall tone of the comparison results, e.g.
+                                 "Mixed" when results split across platforms, "Favorable" if
+                                 every platform favored the prospect, "Unfavorable" if none did.
+  <li><span class="prompt-label">Perplexity: Favorable to Reachium</span><span class="prompt-quote">Called Reachium the safer choice on account safety and its API-based architecture, recommended Expandi only for teams wanting an established, browser-automation tool with a larger ecosystem.</span></li>
+        <li><span class="prompt-label">Gemini: Wrong domain cited</span><span class="prompt-quote">Cited reachium.com, not the real domain, and described Reachium as a stripped-down tool built for solopreneurs, a mismatch with its actual scale and client base.</span></li>
+        <li><span class="prompt-label">ChatGPT: Wrong domain cited</span><span class="prompt-quote">Also cited reachium.com instead of reachium.io, framed Reachium as the simpler, beginner-friendly option against Expandi’s more advanced feature set.</span></li>        <li> rows, same prompts-list pattern as Prompts Tested: one
+                                 per platform tested, prompt-label holding "Platform: Result"
+                                 and prompt-quote holding the actual detail. This card gives
+                                 the comparison prompt (Test 3) its own full per-platform
+                                 results, the same treatment Test 1 (brand identity) and Test 2
+                                 (category) already get elsewhere in the report. Before this,
+                                 the comparison prompt was only disclosed as a prompt in the
+                                 Prompts Tested card below, with no results of its own, real,
+                                 specific findings (e.g. a wrong-domain citation) were easy to
+                                 miss, buried only in the Sentiment/Top Performing Topic prose
+                                 above. Results here are often mixed rather than a clean win/
+                                 loss per platform; word each row plainly rather than forcing
+                                 it into language that doesn't fit. Positioned directly after
+                                 Most-Cited Domains and before Prompts Tested, matching the PDF
+                                 template's section order (Test 1, Test 2, Test 3, then the
+                                 Prompts Tested recap of all three).
 
   26           Overall AI Readiness Score, 0-100, per the scoring methodology
                                  in skill1_searchatlas_execution_guide.md (average of all 5
@@ -286,21 +339,47 @@
                                  a mocked-up schema fix for a specific post here, name the category of gap
                                  only, per the retrofit-playbook rule.
 
+  The fastest path from “described differently by every AI platform” to “recommended by default” starts with fixing the identity and crawler access gaps above, then compounding that foundation with ongoing content and authority building, ORACLE's bi-weekly visibility audits keep pace with how fast this competitive field is moving. Here is how that maps against the other two tiers.         NEW as of 2026-08-15. A short paragraph directly under The AEO
+                                 Growth Plan heading, before the tier cards, mirroring the PDF
+                                 template's growth_plan_intro field. CORRECTED same day: must
+                                 reference only the recommended tier's own cadence (e.g. ORACLE's
+                                 bi-weekly visibility audits), tied to why that tier is the right
+                                 starting point. Do NOT narrate all three tiers' cadences together
+                                 here, an earlier version of this guidance called for exactly that
+                                 and it read like all three tiers were being pitched as equally
+                                 live options, undercutting the one recommendation the report is
+                                 built to make. The other two tiers' cadences stay visible only
+                                 inside their own tier card's own bullet list, where they already
+                                 belong as part of that tier's full feature set. See
+                                 skill1_searchatlas_execution_guide.md's Growth Plan / Reporting
+                                 Structure section for the full correction. Bespoke per prospect,
+                                 not a fixed boilerplate paragraph.
+
   <li>AI crawler access opened deliberately for GPTBot, Claude-Web, PerplexityBot &amp; more</li>
           <li>Structured data expanded and corrected so every AI platform describes Reachium the same, correct way, at the right domain</li>
           <li>Entity signal building toward third party validation sources like G2 and Crunchbase</li>
           <li>1-2 AEO content pieces/mo, newly created or strategically upgraded depending on what your existing content needs</li>
           <li>Monthly AI-Readiness &amp; Visibility Report</li>     <li> items, pulled fresh from agentbuyable.ai/pricing at
-  <li>Basic ACP integration: agents query pricing &amp; plan availability</li>
-          <li>Basic UCP integration for commerce interoperability</li>
-          <li>4-6 AEO content pieces/mo, newly created or strategically upgraded, targeting comparison &amp; “vs” queries like Reachium vs Expandi</li>
+  <li>4-6 AEO content pieces/mo, newly created or strategically upgraded, targeting comparison &amp; “vs” queries like Reachium vs Expandi</li>
           <li>High-authority digital PR &amp; entity link building toward G2, Capterra &amp; Crunchbase</li>
-          <li>Bi-weekly visibility audits across ChatGPT, Claude, Gemini, Perplexity</li>  report time, not copied from a prior report
-  <li>Enterprise ACP: large-catalog pricing &amp; inventory APIs, agent checkout</li>
-          <li>Enterprise UCP: full storefront sync with commerce networks</li>
+          <li>Bi-weekly visibility audits across ChatGPT, Claude, Gemini, Perplexity</li>
+          <li>Basic ACP integration: agents query pricing &amp; plan availability</li>
+          <li>Basic UCP integration for commerce interoperability</li>  report time, not copied from a prior report
+  <li>10+ AEO content pieces/mo, newly created or strategically upgraded, at enterprise volume</li>
           <li>Custom knowledge graph &amp; deep topical authority mapping</li>
-          <li>Real-time visibility monitoring, always on</li>
+          <li>Daily AI visibility audit</li>
           <li>Dedicated AI strategy partner, weekly sessions</li>
+          <li>Enterprise ACP: large-catalog pricing &amp; inventory APIs, agent checkout</li>
+          <li>Enterprise UCP: full storefront sync with commerce networks</li>
+
+  BULLET ORDERING (2026-08-15): for ORACLE and ARCHITECT, order content-and-authority
+  items first (content volume, digital PR, visibility audits), ACP/UCP integration
+  items last. NEO is exempt, its differentiator is foundational technical work, not
+  content volume (it also carries the smallest content allotment of the three), so
+  NEO's bullets stay foundational-items-first with content wherever it naturally
+  falls. ARCHITECT's content bullet must state its count explicitly, 10+ AEO content
+  pieces/mo. See skill1_searchatlas_execution_guide.md's Growth Plan / Reporting
+  Structure section for the full reasoning.
 
   POLICY (2026-07-31): "N pieces/month" content bullets on NEO and ORACLE are no
   longer new-creation-only. Each unit may be either newly created content or a
@@ -312,14 +391,14 @@
   the published unit counts (1-2 for NEO, 4-6 for ORACLE), only what a unit can
   consist of.
 
-  reco       Put the literal string  reco  on whichever ONE of the three
-      tier divs is the actual rubric output for this prospect, and
+         Put the literal string  reco  on whichever ONE of the three
+  reco    tier divs is the actual rubric output for this prospect, and
    leave the other two blank. Exactly one of these three tokens
                                  should ever be non-empty. The <script> below reads whichever
                                  card has the "reco" class at render time — never hardcode the
                                  bottom CTA band's tier name or link separately.
 
-  Close the gap before Expandi becomes the default answer for good.         e.g. "Close the gap before a competitor does."
+  Expandi already owns this category. Content is how Reachium takes it back.         e.g. "Close the gap before a competitor does."
   Every week this goes unaddressed is another week AI points buyers toward Expandi, Octopus CRM, and HeyReach instead of Reachium, and another week two of three AI platforms describe Reachium incorrectly.             1-2 sentences, bespoke urgency framing for this prospect
 
   reachium.io     Prospect's domain, lowercase, no protocol
@@ -431,6 +510,7 @@
   .block-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:10px;}
   .block-head h2{font-size:28px;font-weight:700;letter-spacing:-0.02em;margin:0;}
   .block-head .tag{font-size:13px;color:var(--text-3);}
+  .growth-plan-intro{font-size:15px;color:var(--text-2);line-height:1.6;max-width:760px;margin:-8px 0 28px;}
 
   /* ---- Score row ---- */
   .score-grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:20px;}
@@ -668,6 +748,14 @@
       </ul>
     </div>
     <div class="mcard" style="margin-top:16px;">
+      <div class="mhead"><h3>Test 3: Head-to-Head Comparison</h3><span class="badge warn">Mixed</span></div>
+      <ul class="prompts-list">
+        <li><span class="prompt-label">Perplexity: Favorable to Reachium</span><span class="prompt-quote">Called Reachium the safer choice on account safety and its API-based architecture, recommended Expandi only for teams wanting an established, browser-automation tool with a larger ecosystem.</span></li>
+        <li><span class="prompt-label">Gemini: Wrong domain cited</span><span class="prompt-quote">Cited reachium.com, not the real domain, and described Reachium as a stripped-down tool built for solopreneurs, a mismatch with its actual scale and client base.</span></li>
+        <li><span class="prompt-label">ChatGPT: Wrong domain cited</span><span class="prompt-quote">Also cited reachium.com instead of reachium.io, framed Reachium as the simpler, beginner-friendly option against Expandi’s more advanced feature set.</span></li>
+      </ul>
+    </div>
+    <div class="mcard" style="margin-top:16px;">
       <div class="mhead"><h3>Prompts Tested</h3><span class="badge info">Methodology</span></div>
       <ul class="prompts-list">
         <li><span class="prompt-label">Brand identity</span><span class="prompt-quote">&ldquo;What is reachium.io and what do they do?&rdquo;</span></li>
@@ -707,6 +795,14 @@
         <p>Across all three prompts tested, brand identity, category, and comparison, no response cited Wikipedia, G2, Capterra, Crunchbase, or Reddit in connection with Reachium. None of these third-party validation sources are currently feeding into how AI talks about the brand.</p>
       </div>
     </div>
+    <div class="mcard" style="margin-top:16px;">
+      <div class="mhead"><h3>Content Library Snapshot</h3><span class="badge ok">3-Post Sample</span></div>
+      <ul class="prompts-list">
+        <li><span class="prompt-label">&ldquo;Do LinkedIn Connection Notes Work?&rdquo; &mdash; sampled as the longest post (2,423 words)</span><span class="prompt-quote">Clean pass: valid Article and Dataset schema, a stat-led direct-answer block immediately under the headline, and a title already framed as the exact question a buyer would ask. The one gap, consistent across every post sampled: internal subheadings (Key finding, Methodology, Limitations) are generic section labels, not question-phrased.</span></li>
+        <li><span class="prompt-label">&ldquo;From Comments to Booked Meetings: A LinkedIn Content Funnel Measured End to End&rdquo; &mdash; sampled from the middle of the archive</span><span class="prompt-quote">Same clean pattern as the other two sampled posts: Article and Dataset schema present, a stat-led summary right after the headline, no FAQ content to misclassify. Same generic-subheading gap as the rest of the sample.</span></li>
+        <li><span class="prompt-label">&ldquo;The Impressions Lottery: How Unevenly LinkedIn Reach Is Distributed&rdquo; &mdash; sampled from the tail of the archive, the shortest of the ten research posts</span><span class="prompt-quote">Confirms the pattern holds across the full archive, not just the newer or longer posts: schema and the direct-answer block are already in place, subheadings are still generic rather than question-phrased.</span></li>
+      </ul>
+    </div>
   </section>
 
   <!-- GROWTH PLAN -->
@@ -715,8 +811,9 @@
       <h2>The AEO Growth Plan</h2>
       <div class="tag">Turning today's blindspot into tomorrow's advantage</div>
     </div>
+    <p class="growth-plan-intro">The fastest path from “described differently by every AI platform” to “recommended by default” starts with fixing the identity and crawler access gaps above, then compounding that foundation with ongoing content and authority building, ORACLE's bi-weekly visibility audits keep pace with how fast this competitive field is moving. Here is how that maps against the other two tiers.</p>
     <div class="tiers">
-      <div class="tier reco">
+      <div class="tier ">
         <h3>NEO</h3>
         <div class="price">$750/mo</div>
         <div class="tagline">Get Discovered by AI</div>
@@ -727,31 +824,32 @@
           <li>1-2 AEO content pieces/mo, newly created or strategically upgraded depending on what your existing content needs</li>
           <li>Monthly AI-Readiness &amp; Visibility Report</li>
         </ul>
-        <a class="tier-cta reco" href="https://buy.stripe.com/28E00jdTE0IPbHP06QeZ20p" target="_blank" rel="noopener">Start with NEO</a>
+        <a class="tier-cta " href="https://buy.stripe.com/28E00jdTE0IPbHP06QeZ20p" target="_blank" rel="noopener">Start with NEO</a>
       </div>
-      <div class="tier ">
+      <div class="tier reco">
         <h3>ORACLE</h3>
         <div class="price">$3,500/mo</div>
         <div class="tagline">Shape the Narrative</div>
         <ul>
-          <li>Basic ACP integration: agents query pricing &amp; plan availability</li>
-          <li>Basic UCP integration for commerce interoperability</li>
           <li>4-6 AEO content pieces/mo, newly created or strategically upgraded, targeting comparison &amp; “vs” queries like Reachium vs Expandi</li>
           <li>High-authority digital PR &amp; entity link building toward G2, Capterra &amp; Crunchbase</li>
           <li>Bi-weekly visibility audits across ChatGPT, Claude, Gemini, Perplexity</li>
+          <li>Basic ACP integration: agents query pricing &amp; plan availability</li>
+          <li>Basic UCP integration for commerce interoperability</li>
         </ul>
-        <a class="tier-cta " href="https://buy.stripe.com/00wcN5dTE8bheU17zieZ20q" target="_blank" rel="noopener">Start with ORACLE</a>
+        <a class="tier-cta reco" href="https://buy.stripe.com/00wcN5dTE8bheU17zieZ20q" target="_blank" rel="noopener">Start with ORACLE</a>
       </div>
       <div class="tier ">
         <h3>ARCHITECT</h3>
         <div class="price">$7,500/mo</div>
         <div class="tagline">Own Your Market</div>
         <ul>
+          <li>10+ AEO content pieces/mo, newly created or strategically upgraded, at enterprise volume</li>
+          <li>Custom knowledge graph &amp; deep topical authority mapping</li>
+          <li>Daily AI visibility audit</li>
+          <li>Dedicated AI strategy partner, weekly sessions</li>
           <li>Enterprise ACP: large-catalog pricing &amp; inventory APIs, agent checkout</li>
           <li>Enterprise UCP: full storefront sync with commerce networks</li>
-          <li>Custom knowledge graph &amp; deep topical authority mapping</li>
-          <li>Real-time visibility monitoring, always on</li>
-          <li>Dedicated AI strategy partner, weekly sessions</li>
         </ul>
         <a class="tier-cta " href="https://buy.stripe.com/dRm6oH3f0bntfY53j2eZ20r" target="_blank" rel="noopener">Start with ARCHITECT</a>
       </div>
@@ -759,7 +857,7 @@
   </section>
 
   <div class="cta-band">
-    <h2>Close the gap before Expandi becomes the default answer for good.</h2>
+    <h2>Expandi already owns this category. Content is how Reachium takes it back.</h2>
     <p>Every week this goes unaddressed is another week AI points buyers toward Expandi, Octopus CRM, and HeyReach instead of Reachium, and another week two of three AI platforms describe Reachium incorrectly.</p>
     <div class="cta-buttons">
       <a class="btn-primary" id="bottomCtaBtn" href="#" target="_blank" rel="noopener">Start with NEO</a>

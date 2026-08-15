@@ -1,0 +1,869 @@
+<!--
+  ============================================================================
+  AGENTBUYABLE — CANONICAL HTML DASHBOARD MASTER TEMPLATE
+  ============================================================================
+  Source of truth: this file was tokenized directly from the live, approved
+  Dream E Waste dashboard (agentbuyable.ai/reports/dream-e-waste.html), the
+  first report the account owner signed off on. It is preserved EXACTLY as
+  shipped, including its current script behavior (see note above the Chart.js
+  block below) — do not "fix" anything here without the account owner's
+  explicit sign-off first, even if it looks like a bug.
+
+  RULE: every future prospect dashboard must be built by copying THIS file
+  and filling in the {{TOKEN}} placeholders below. Do not rebuild a dashboard
+  from scratch, from memory, or from a different prospect's file. Do not
+  rename CSS classes, change color variables, reorder sections, or introduce
+  new layout patterns for an individual prospect — if a genuine design change
+  is needed, it happens here, in this file, with a note added to the
+  "Canonical HTML Dashboard Template" section of skill1_searchatlas_execution_guide.md.
+
+  CHANGE LOG:
+  2026-08-11: Added an explicit sort-order rule to the <li><span class="domain">expandi.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">octopuscrm.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">dripify.io</span><span class="count">2 citations</span></li>
+        <li><span class="domain">dux-soup.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">lemlist.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">heyreach.io</span><span class="count">1 citation</span></li>
+        <li><span class="domain self">reachium.io</span><span class="count">0 citations</span></li>
+  guidance: every row, including self, sorts purely by real count, descending.
+  Self is not pinned to the top regardless of its count. Caught on the same
+  real MAP Marketing audit as the category-only-scoping fix below, when the
+  account owner pointed out that self sitting at the top of the list looked
+  wrong once its count was corrected to 0 — the list needs to read like an
+  honest ranking, not a company profile with self always leading.
+  2026-08-11: Fixed a stale inline comment on <li><span class="domain">expandi.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">octopuscrm.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">dripify.io</span><span class="count">2 citations</span></li>
+        <li><span class="domain">dux-soup.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">lemlist.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">heyreach.io</span><span class="count">1 citation</span></li>
+        <li><span class="domain self">reachium.io</span><span class="count">0 citations</span></li> that
+  still described the pre-2026-08-08 "blend all tests" policy for the
+  Most-Cited Domains card, even though the live header already read
+  "Category Question Only" (the account owner reversed this policy on
+  2026-08-08 per Design Standard #7, but the comment was never updated to
+  match, leaving two contradictory instructions in the same file). Caught
+  on the real MAP Marketing audit when the account owner noticed the
+  audited company's own domain showing a nonzero citation count under a
+  header that promised category-only data. The comment now matches the
+  live header and current policy: category-query responses only, verified
+  against actual response text per Design Standard #8, self shown even at
+  a real count of 0.
+  2026-08-11: Added an optional "Content Library Snapshot" card (Step 1b,
+  Design Standard #14 in skill1_searchatlas_execution_guide.md) directly
+  after the Entity Schema Health card in the Technical Roadblocks section.
+  Shows a stratified 3-post sample of the prospect's blog, if one exists,
+  checked against a fixed rubric (Article schema, FAQPage schema where a
+  real FAQ exists, direct-answer block, heading structure), reported
+  per-post and named specifically. Narrative only: does not affect the
+  Entity Schema Integrity score above it. New {{BLOG_SNAPSHOT_HTML}} token,
+  see its TOKEN REFERENCE entry below. Omit the entire card (not a blank
+  card) when the prospect has no blog/resource section.
+  2026-08-07: Added a "Prompts Tested" card (Design Standard #12) after the
+  Most-Cited Domains card in the Platform-by-Platform Detail section, listing
+  all three tested prompts verbatim. Reuses the existing WIN_PROMPT_QUOTE and
+  LOSE_PROMPT_QUOTE tokens and adds one new token, COMPARISON_PROMPT_QUOTE,
+  since the comparison prompt was previously gathered but never quoted
+  anywhere in this template. See the new TOKEN REFERENCE entry below for
+  COMPARISON_PROMPT_QUOTE.
+  2026-08-05: Added a 6th .pillar-row block (Entity Signal Assessment) to
+  PILLAR_ROWS_HTML, per that day's pillar expansion from four to five scored
+  pillars (Brand Recognition remains separate and unscored). See the updated
+  TOKEN REFERENCE entry below for PILLAR_ROWS_HTML.
+  2026-08-08: Removed the special-case rule that always colored the AI
+  Crawler Access pillar row blue regardless of its actual score. Per the
+  account owner: pillar color should follow the same score threshold for
+  all six rows, no exceptions. Found and flagged during the real Regala
+  Consulting Inc. audit, where AI Crawler Access scored weak (25%) but
+  rendered blue, visually reading as neutral next to five red rows that
+  were, in aggregate, no weaker. Initially replaced with a two-tier
+  coral/emerald rule, then refined the same day to a three-tier
+  coral/amber/emerald rule per the account owner, since a flat red/green
+  split couldn't distinguish a pillar at 45% from one at 5%. The 60+ green
+  threshold was considered for raising but confirmed to stay as-is; see
+  the updated TOKEN REFERENCE entry below for PILLAR_ROWS_HTML for the
+  full reasoning.
+  2026-08-08: Added a fixed, static "How We Test" card (Design Standard
+  #13) directly after the Prompts Tested card. Not a token, this is the
+  same fixed copy on every report, since it explains the Prompt
+  Simulator's neutral-baseline methodology rather than anything specific
+  to a given prospect. Added after the real Regala Consulting Inc. audit
+  surfaced a real discrepancy: the account owner re-tested the same
+  brand-identity prompt directly in the live chatgpt.com and
+  gemini.google.com consumer apps and got a different, correct answer
+  than the Prompt Simulator returned on two separate runs. Per SearchAtlas
+  Coworker's explanation (obtained directly from the vendor): the Prompt
+  Simulator queries search-grounded engines in a clean, non-personalized
+  state, while consumer apps additionally use the individual user's saved
+  location, browsing history, and account context to help resolve
+  ambiguous or similarly-named businesses. See Design Standard #13 in
+  skill1_searchatlas_execution_guide.md for the full reasoning and an
+  important open caveat about model-version differences that this
+  disclosure does not, by itself, rule out.
+
+  ----------------------------------------------------------------------------
+  TOKEN REFERENCE (all tokens appear in both the visible HTML and the inline
+  <script> block at the bottom — replace every occurrence of a token,
+  including inside the script, or the dashboard will show stale/wrong data)
+  ----------------------------------------------------------------------------
+
+  Reachium              Prospect's confirmed brand name, e.g. "Dream E Waste"
+  Reachium &mdash; AI Visibility &amp; Readiness         Usually just "Reachium — AI Visibility & Readiness"
+  Prepared by AgentBuyable              Small label above the headline. Usually "Prepared by AgentBuyable"
+  Two identities.<br><span>Zero category visibility.</span>        Bespoke headline, copywritten per prospect. May include <br> and
+                                 <span> tags for the muted-color line, same as the source example.
+  We tested Reachium across ChatGPT, Gemini, and Perplexity. The platforms disagree on what Reachium even is, and none of them recommend it when a buyer searches the category.              1-2 sentence bespoke summary of what was tested and found
+
+  What is reachium.io and what do they do?          The brand-identity prompt actually tested, in quotes
+  33%              Brand recognition percentage, e.g. "100%"
+  Correctly identified as a LinkedIn native outreach platform, by only one of three AI platforms          e.g. "Recognized and ranked first, every platform"
+  <div class="plat-chip"><span class="dot"></span>Perplexity &mdash; correctly identified</div>
+        <div class="plat-chip"><span class="dot"></span>Gemini &mdash; misidentified</div>
+        <div class="plat-chip"><span class="dot"></span>ChatGPT &mdash; misidentified</div>   One <div class="plat-chip">...</div> per platform tested,
+                                 win side (e.g. "ChatGPT — cited", "Gemini — described")
+
+  What are the best LinkedIn outreach automation tools for B2B sales teams?         The category-query prompt actually tested, in quotes
+  0%             Category-visibility percentage, e.g. "0%"
+  Not recommended, any platform, any test         e.g. "Not recommended, any platform, any test"
+  <div class="plat-chip"><span class="dot"></span>Expandi recommended</div>
+        <div class="plat-chip"><span class="dot"></span>Octopus CRM recommended</div>
+        <div class="plat-chip"><span class="dot"></span>Dripify recommended</div>
+        <div class="plat-chip"><span class="dot"></span>HeyReach recommended</div>  One <div class="plat-chip">...</div> per competitor that
+                                 appeared instead (e.g. "ERI recommended")
+
+  Compare Reachium vs Expandi   NEW as of 2026-08-07. The actual comparison-query prompt
+                                 tested, in quotes, no quote marks needed in the value itself
+                                 (the Prompts Tested card supplies them). The competitor named
+                                 here must come from the Comparison Competitor Selection Rule
+                                 in skill1_searchatlas_execution_guide.md (under Step 3), not
+                                 from researcher assumption, except in the documented
+                                 researcher-knowledge fallback case for that rule.
+
+  26           Overall AI Readiness Score, 0-100, per the scoring methodology
+                                 in skill1_searchatlas_execution_guide.md (average of all 5
+                                 pillars as of 2026-08-05 — never publish this if any pillar
+                                 is unscored)
+  This score reflects how ready Reachium is to be found, understood, recommended, and transacted with by AI today. A score in this range means the groundwork has not been laid yet, not that the opportunity is out of reach.      The fixed-voice paragraph next to the score ring (swap in
+                                 company context only, keep the "this isn't a dead end" framing)
+  <div class="pillar-row"><div class="pillar-name">Brand Recognition</div><div class="pillar-track"><div class="pillar-fill" style="width:33%;background:var(--coral);"></div></div><div class="pillar-val">33%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Entity Schema Integrity</div><div class="pillar-track"><div class="pillar-fill" style="width:65%;background:var(--emerald);"></div></div><div class="pillar-val">65%</div></div>
+        <div class="pillar-row"><div class="pillar-name">AI Crawler Access</div><div class="pillar-track"><div class="pillar-fill" style="width:25%;background:var(--coral);"></div></div><div class="pillar-val">25%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Category Visibility</div><div class="pillar-track"><div class="pillar-fill" style="width:5%;background:var(--coral);"></div></div><div class="pillar-val">5%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Agentic Commerce (ACP/UCP)</div><div class="pillar-track"><div class="pillar-fill" style="width:30%;background:var(--coral);"></div></div><div class="pillar-val">30%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Entity Signal Assessment</div><div class="pillar-track"><div class="pillar-fill" style="width:5%;background:var(--coral);"></div></div><div class="pillar-val">5%</div></div>          Six .pillar-row blocks: Brand Recognition (reported separately,
+                                 not averaged into the score), Entity Schema Integrity, AI
+                                 Crawler Access, Category Visibility, Agentic Commerce (ACP/UCP),
+                                 Entity Signal Assessment (NEW as of 2026-08-05). Each needs a
+                                 width:{{N}}% and a pillar color, by score threshold, applied
+                                 uniformly to all six rows including AI Crawler Access (changed
+                                 2026-08-08, per the account owner's explicit instruction; AI
+                                 Crawler Access previously always rendered blue regardless of
+                                 score, which visually read as "neutral" even when the score was
+                                 weak). Three-tier threshold (also 2026-08-08, replacing the
+                                 initial two-tier version from earlier the same day): --coral for
+                                 under 40, --amber for 40-59, --emerald for 60+. The account owner
+                                 confirmed 60+ stays as the green threshold as-is (not raised),
+                                 since the underlying pillar-scoring rubrics (see
+                                 skill1_searchatlas_execution_guide.md's AI Readiness Score
+                                 Methodology section) are already conservative about awarding a
+                                 high score, e.g. Entity Signal Assessment only reaches 50-70 with
+                                 2-3 real trust-signal sources found. A pillar scoring 60+ has
+                                 already earned it; do not shade an honest green to manufacture
+                                 urgency, and do not adjust this threshold as a way of second
+                                 guessing an individual pillar's scoring rule, fix the rule
+                                 instead if one pillar's scoring feels too generous in practice.
+
+  Simulated share of voice across ChatGPT, Gemini, and Perplexity for “best LinkedIn outreach automation tools” queries. Expandi and Octopus CRM appeared in all three tests. Reachium appeared in none.     Caption under the bar chart explaining what it shows
+  ["Reachium","Expandi","Octopus CRM","Dripify","Dux-Soup","HeyReach"]    JS array of labels, audited company's exact confirmed name FIRST
+                                 or wherever it naturally sorts — position does not matter, the
+                                 script colors by name match, not array position
+  [0,100,100,67,67,33]    JS array of visibility scores, 0-100, same order as labels above
+
+  ok     ok / warn / info
+  Favorable     e.g. "Positive"
+  The only place Reachium was actually mentioned was the head to head comparison against Expandi, and Perplexity's sentiment there was favorable, calling Reachium the safer, more modern choice on account safety and its API-based architecture. That result never surfaces because it only shows up when a buyer already has both names in front of them.            1-2 sentences on sentiment when the brand IS mentioned
+  info     ok / warn / info
+  Comparison Query     e.g. "Brand Query"
+  Reachium only appears in the “Reachium vs Expandi” comparison prompt. It does not surface in either the open-ended brand-identity prompt or the category prompt on its own.            1-2 sentences on which tested topic the brand appears under
+
+  <li><span class="domain">expandi.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">octopuscrm.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">dripify.io</span><span class="count">2 citations</span></li>
+        <li><span class="domain">dux-soup.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">lemlist.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">heyreach.io</span><span class="count">1 citation</span></li>
+        <li><span class="domain self">reachium.io</span><span class="count">0 citations</span></li>       <li> rows, domain + citation count. CORRECTED 2026-08-11: this
+                                 card's live header already reads "Most-Cited Domains — Category
+                                 Question Only" (see the <h3> in the markup below), but this
+                                 comment block still described the pre-2026-08-08 "blend all
+                                 tests" policy, which the account owner reversed that day per
+                                 Design Standard #7 in skill1_searchatlas_execution_guide.md.
+                                 The comment was never updated to match, so the file was giving
+                                 two contradictory instructions (a category-only header, a
+                                 blend-all comment). Caught 2026-08-11 on the real MAP Marketing
+                                 audit, where the blend-all population made the audited
+                                 company's own domain show a nonzero citation count next to a
+                                 header that promised category-only data — nonsensical, since
+                                 the whole point of the category test is that the company
+                                 wasn't mentioned.
+                                 CURRENT POLICY (matches the live header, matches Design
+                                 Standard #7): populate this card from the category-query
+                                 prompt's responses ONLY — never blend in the brand-identity or
+                                 comparison prompts, since both of those put the company's name
+                                 directly in the question and make any citation there close to
+                                 guaranteed. Verify each citation against the actual response
+                                 body text (Design Standard #8), not the "brands"/"mentioned"
+                                 metadata field alone, since that field can include the tracked
+                                 domain even when the body never names it. The audited company's
+                                 own domain must still appear in this list even at a real count
+                                 of 0, marked with class="domain self", so the gap is visible
+                                 rather than hidden. SORT ORDER (corrected 2026-08-11, same real
+                                 audit): sort every row, self included, purely by its real count,
+                                 descending. Do not pin self to the top regardless of its count —
+                                 that was the original bug this whole note exists to fix. Self's
+                                 position in the sorted list is itself part of the finding: a
+                                 self count of 0 belongs at the bottom, a self count that beats
+                                 some competitors belongs wherever that count actually ranks.
+                                 This is unrelated to the Entity Signal Assessment pillar row
+                                 below, which deliberately blends across all prompts for a
+                                 different reason (third-party trust validation of the entity,
+                                 not organic category discovery) — that pillar's blending is
+                                 intentional and correct as-is.
+
+  ok ok / warn / info
+  Good foundation e.g. "Needs work"
+  Organization + 6 sameAs links         Big stat, e.g. "97 / 100" pages missing structured data
+  Valid Organization and WebSite schema is in place, with sameAs links to LinkedIn, YouTube, Instagram, Facebook, Trustpilot, and the App Store. A real strength. No Product, Service, or Offer schema exists yet, which is what the Agentic Commerce Readiness gap below is about.        Explanation sentence
+
+  warn ok / warn / info
+  Underdeveloped e.g. "Underdeveloped" or "Open" if actually verified fine
+  Barebone        Big stat/status word
+  robots.txt allows all crawlers with a blanket rule, but does not explicitly and deliberately name or welcome the AI crawlers behind ChatGPT, Perplexity, or Google's AI Mode. Nothing is blocked, but nothing is being deliberately invited either.       Explanation — verify against the ACTUAL robots.txt content
+                                 before writing this; "blocking_llm_crawlers" audit flags a
+                                 known false positive (see skill1 guide) when AI bot names are
+                                 merely listed without a real Disallow rule attached to them.
+                                 Note that strong crawler access does not imply strong
+                                 indexability or schema — a site can explicitly welcome every
+                                 AI crawler by name and still be mostly non-indexable due to
+                                 unrelated technical issues (e.g. client-side rendering with no
+                                 server-rendered content). Report these as distinct findings.
+
+  warn   ok / warn / info
+  1 of 4 Found   e.g. "Not Found"
+  1 of 4           e.g. "0 of 4"
+  No ACP endpoint, UCP endpoint, or legacy AI plugin manifest exists. Reachium does have a genuinely well authored llms.txt, real business description, pricing, case study, and comparison links, not the thin auto-generated version most sites carry. That's a better starting point than most prospects have, but it's still a content index, not a transaction endpoint an agent can book through.          Explanation of ACP/UCP discovery-path and schema findings.
+                                 Distinguish a plugin-boilerplate llms.txt content index from a
+                                 genuinely well-authored one with real engagement/pricing detail
+                                 and a live booking link — the latter is a stronger signal and
+                                 should read that way, even though neither is a substitute for
+                                 real ACP/UCP schema.
+
+  warn  ok / warn / info
+  Not Found  e.g. "Not Found" or "1 Source Found"
+  0 of 5          e.g. "0 of 5" third-party trust sources found citing the prospect
+  Across all three prompts tested, brand identity, category, and comparison, no response cited Wikipedia, G2, Capterra, Crunchbase, or Reddit in connection with Reachium. None of these third-party validation sources are currently feeding into how AI talks about the brand.         Explanation of which trust-signal sources (Wikipedia, G2,
+                                 Capterra, Crunchbase, Reddit, Google Business Profile) were
+                                 checked and what was or wasn't found citing the prospect
+                                 specifically, per Step 3b in skill1_searchatlas_execution_guide.md
+
+  {{BLOG_SNAPSHOT_HTML}}        OPTIONAL. Only include the entire "Content Library Snapshot" card
+                                 (and the {{BLOG_SNAPSHOT_HTML}} block inside it) if the prospect has
+                                 a blog/resource section. If they don't, omit the card entirely from
+                                 the render, do not leave it in with placeholder or empty content. When
+                                 present: a set of <li> or <div> blocks, one per sampled post (3, stratified:
+                                 most recent, mid-archive, cornerstone-by-word-count; if fewer than 3 posts
+                                 exist, sample what's there and state the small sample size in the copy
+                                 rather than omitting the card). Each entry names the actual post (title or
+                                 URL) and states its specific findings against the fixed rubric: Article
+                                 schema present/not, FAQPage schema present/not (flagged as a gap only when
+                                 a real FAQ section exists on that post), a direct-answer/summary block near
+                                 the top present/not, heading structure (question-phrased vs. generic). If a
+                                 sampled post already passes cleanly, say so explicitly rather than only
+                                 reporting gaps. This is narrative evidence under Entity Schema Integrity
+                                 (Pillar 2) only, per Design Standard #14 in
+                                 skill1_searchatlas_execution_guide.md; it never changes
+                                 Organization + 6 sameAs links or any pillar score. Never draft replacement copy or
+                                 a mocked-up schema fix for a specific post here, name the category of gap
+                                 only, per the retrofit-playbook rule.
+
+  <li>AI crawler access opened deliberately for GPTBot, Claude-Web, PerplexityBot &amp; more</li>
+          <li>Structured data expanded and corrected so every AI platform describes Reachium the same, correct way, at the right domain</li>
+          <li>Entity signal building toward third party validation sources like G2 and Crunchbase</li>
+          <li>1-2 AEO content pieces/mo, newly created or strategically upgraded depending on what your existing content needs</li>
+          <li>Monthly AI-Readiness &amp; Visibility Report</li>     <li> items, pulled fresh from agentbuyable.ai/pricing at
+  <li>Basic ACP integration: agents query pricing &amp; plan availability</li>
+          <li>Basic UCP integration for commerce interoperability</li>
+          <li>4-6 AEO content pieces/mo, newly created or strategically upgraded, targeting comparison &amp; “vs” queries like Reachium vs Expandi</li>
+          <li>High-authority digital PR &amp; entity link building toward G2, Capterra &amp; Crunchbase</li>
+          <li>Bi-weekly visibility audits across ChatGPT, Claude, Gemini, Perplexity</li>  report time, not copied from a prior report
+  <li>Enterprise ACP: large-catalog pricing &amp; inventory APIs, agent checkout</li>
+          <li>Enterprise UCP: full storefront sync with commerce networks</li>
+          <li>Custom knowledge graph &amp; deep topical authority mapping</li>
+          <li>Real-time visibility monitoring, always on</li>
+          <li>Dedicated AI strategy partner, weekly sessions</li>
+
+  POLICY (2026-07-31): "N pieces/month" content bullets on NEO and ORACLE are no
+  longer new-creation-only. Each unit may be either newly created content or a
+  strategic upgrade/refresh of the prospect's existing content (schema, direct-
+  answer blocks, structured formatting, entity linking), counted 1:1 regardless
+  of which it is. Default to new-creation framing only when the prospect has no
+  meaningful existing content library; when they do (large blog/resource archive
+  already in place), the audit determines the actual mix. This does not change
+  the published unit counts (1-2 for NEO, 4-6 for ORACLE), only what a unit can
+  consist of.
+
+  reco       Put the literal string  reco  on whichever ONE of the three
+      tier divs is the actual rubric output for this prospect, and
+   leave the other two blank. Exactly one of these three tokens
+                                 should ever be non-empty. The <script> below reads whichever
+                                 card has the "reco" class at render time — never hardcode the
+                                 bottom CTA band's tier name or link separately.
+
+  Close the gap before Expandi becomes the default answer for good.         e.g. "Close the gap before a competitor does."
+  Every week this goes unaddressed is another week AI points buyers toward Expandi, Octopus CRM, and HeyReach instead of Reachium, and another week two of three AI platforms describe Reachium incorrectly.             1-2 sentences, bespoke urgency framing for this prospect
+
+  reachium.io     Prospect's domain, lowercase, no protocol
+  ChatGPT, Gemini, and Perplexity   e.g. "ChatGPT, Gemini, and Perplexity"
+
+  26          Same value as 26 (used in the doughnut data array)
+  74      100 minus 26
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reachium &mdash; AI Visibility &amp; Readiness</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#08090B;
+    --surface-1:#131519;
+    --surface-2:#1B1E23;
+    --surface-3:#232730;
+    --text-1:#F5F5F7;
+    --text-2:#D5D5DA;
+    --text-3:#A6A6AE;
+    --emerald:#34D399;
+    --emerald-dim:#1B4B3B;
+    --coral:#FF6B4A;
+    --coral-dim:#4A2A22;
+    --blue:#5AA6FF;
+    --purple:#B48CFF;
+    --amber:#FFC24B;
+    --teal:#4FD1C5;
+    --hair:rgba(255,255,255,0.08);
+    --hair-2:rgba(255,255,255,0.14);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text-1);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    letter-spacing:-0.01em;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px 120px;}
+  a{color:inherit;}
+
+  /* ---- Nav ---- */
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 28px;position:sticky;top:0;z-index:50;
+    background:rgba(8,9,11,0.72);backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--hair);
+  }
+  .nav .brand{font-size:14px;font-weight:600;color:var(--text-2);letter-spacing:0.02em;}
+  .nav .brand b{color:var(--text-1);}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .nav-source{
+    font-size:13px;font-weight:600;color:var(--emerald);text-decoration:none;letter-spacing:0.01em;
+  }
+  .nav-source:hover{text-decoration:underline;}
+  .nav .cta{
+    background:var(--text-1);color:#0A0A0C;font-weight:600;font-size:13px;
+    padding:9px 18px;border-radius:100px;text-decoration:none;
+  }
+
+  /* ---- Hero ---- */
+  .hero{padding:88px 0 40px;text-align:center;}
+  .eyebrow{
+    display:inline-block;font-size:12px;font-weight:600;color:var(--emerald);
+    letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:56px;line-height:1.06;font-weight:700;letter-spacing:-0.03em;
+    margin:0 0 22px;
+  }
+  .hero h1 span{color:var(--text-2);}
+  .hero p.sub{
+    font-size:19px;line-height:1.5;color:var(--text-2);max-width:640px;margin:0 auto;font-weight:400;
+  }
+
+  /* ---- Signature split visual ---- */
+  .split{
+    display:grid;grid-template-columns:1fr 1fr;gap:2px;
+    margin:64px 0 24px;border-radius:24px;overflow:hidden;border:1px solid var(--hair);
+  }
+  .split-panel{padding:40px 34px 34px;position:relative;}
+  .split-panel.win{background:linear-gradient(160deg,var(--emerald-dim),var(--surface-1) 65%);}
+  .split-panel.lose{background:linear-gradient(160deg,var(--coral-dim),var(--surface-1) 65%);}
+  .split-label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-2);margin-bottom:6px;}
+  .split-q{font-size:17px;color:var(--text-1);font-style:italic;margin-bottom:26px;line-height:1.4;min-height:48px;}
+  .split-stat{font-size:64px;font-weight:700;letter-spacing:-0.03em;line-height:1;margin-bottom:6px;}
+  .win .split-stat{color:var(--emerald);}
+  .lose .split-stat{color:var(--coral);}
+  .split-sub{font-size:14px;color:var(--text-2);margin-bottom:24px;}
+  .plat-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .plat-chip{
+    display:flex;align-items:center;gap:7px;font-size:13px;font-weight:500;
+    padding:8px 13px;border-radius:100px;background:rgba(255,255,255,0.05);
+    border:1px solid var(--hair-2);
+  }
+  .plat-chip .dot{width:7px;height:7px;border-radius:50%;}
+  .win .dot{background:var(--emerald);}
+  .lose .dot{background:var(--coral);}
+  .lose .plat-chip{color:var(--text-2);}
+
+  /* ---- Section shell ---- */
+  section.block{margin-top:88px;}
+  .block-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:10px;}
+  .block-head h2{font-size:28px;font-weight:700;letter-spacing:-0.02em;margin:0;}
+  .block-head .tag{font-size:13px;color:var(--text-3);}
+
+  /* ---- Score row ---- */
+  .score-grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:20px;}
+  .score-card{
+    background:var(--surface-1);border:1px solid var(--hair);border-radius:20px;
+    padding:32px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  }
+  .score-ring{position:relative;width:180px;height:180px;margin-bottom:18px;}
+  .score-ring canvas{position:absolute;inset:0;}
+  .score-num{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .score-num b{font-size:44px;font-weight:700;color:var(--coral);letter-spacing:-0.02em;}
+  .score-num span{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;}
+  .score-card p{font-size:14px;color:var(--text-2);line-height:1.5;margin:0;max-width:280px;}
+
+  .pillars{background:var(--surface-1);border:1px solid var(--hair);border-radius:20px;padding:28px 30px;}
+  .pillar-row{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--hair);}
+  .pillar-row:last-child{border-bottom:none;}
+  .pillar-name{flex:0 0 190px;font-size:14px;font-weight:600;}
+  .pillar-track{flex:1;height:6px;border-radius:100px;background:rgba(255,255,255,0.06);overflow:hidden;}
+  .pillar-fill{height:100%;border-radius:100px;}
+  .pillar-val{flex:0 0 46px;text-align:right;font-size:13px;color:var(--text-2);font-variant-numeric:tabular-nums;}
+
+  /* ---- Chart card ---- */
+  .chart-card{background:var(--surface-1);border:1px solid var(--hair);border-radius:20px;padding:30px;}
+  .chart-card .chart-note{font-size:13px;color:var(--text-3);margin-top:16px;line-height:1.5;}
+  .chart-wrap{height:280px;}
+
+  /* ---- Card grid (metrics) ---- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .cards.two{grid-template-columns:repeat(2,1fr);}
+  .mcard{
+    background:var(--surface-1);border:1px solid var(--hair);border-radius:18px;padding:24px;
+  }
+  .mcard .mhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .mcard h3{font-size:14px;font-weight:600;margin:0;}
+  .badge{font-size:11px;font-weight:700;padding:4px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:0.03em;}
+  .badge.ok{background:rgba(52,211,153,0.14);color:var(--emerald);}
+  .badge.warn{background:rgba(255,107,74,0.14);color:var(--coral);}
+  .badge.info{background:rgba(90,166,255,0.14);color:var(--blue);}
+  .mcard p{font-size:13.5px;color:var(--text-2);line-height:1.55;margin:0;}
+  .mcard .big{font-size:26px;font-weight:700;letter-spacing:-0.02em;margin-bottom:6px;}
+
+  /* ---- Citation list ---- */
+  .citelist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
+  .citelist li{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;border-bottom:1px solid var(--hair);font-size:14px;
+  }
+  .citelist li:last-child{border-bottom:none;}
+  .citelist .domain{font-weight:600;}
+  .citelist .domain.self{color:var(--emerald);}
+  .citelist .count{color:var(--text-3);font-variant-numeric:tabular-nums;font-size:13px;}
+
+  /* ---- Prompts Tested (Design Standard #12, added 2026-08-07) ---- */
+  .prompts-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;}
+  .prompts-list li{padding:12px 0;border-bottom:1px solid var(--hair);}
+  .prompts-list li:last-child{border-bottom:none;}
+  .prompt-label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-3);margin-bottom:4px;}
+  .prompt-quote{color:var(--text-2);font-style:italic;font-size:13.5px;line-height:1.5;}
+
+  /* ---- Tiers ---- */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .tier{
+    background:var(--surface-1);border:1px solid var(--hair);border-radius:20px;padding:28px 26px;
+    display:flex;flex-direction:column;
+  }
+  .tier.reco{border-color:var(--emerald);background:linear-gradient(180deg,rgba(52,211,153,0.08),var(--surface-1) 30%);position:relative;}
+  .tier.reco::before{
+    content:"Recommended for Reachium";position:absolute;top:-13px;left:26px;
+    background:var(--emerald);color:#062018;font-size:11px;font-weight:700;
+    padding:5px 12px;border-radius:100px;letter-spacing:0.02em;
+  }
+  .tier h3{font-size:20px;margin:6px 0 2px;font-weight:700;}
+  .tier .price{font-size:15px;color:var(--emerald);font-weight:600;margin-bottom:4px;}
+  .tier .tagline{font-size:13.5px;color:var(--text-2);margin-bottom:20px;}
+  .tier ul{list-style:none;margin:0;padding:0;flex:1;}
+  .tier li{font-size:13.5px;color:var(--text-2);padding:7px 0;padding-left:20px;position:relative;line-height:1.4;}
+  .tier li::before{content:"";position:absolute;left:0;top:14px;width:6px;height:6px;border-radius:50%;background:var(--text-3);}
+  .tier.reco li::before{background:var(--emerald);}
+
+  /* ---- CTA ---- */
+  .cta-band{
+    margin-top:96px;border-radius:24px;padding:64px 48px;text-align:center;
+    background:radial-gradient(120% 160% at 50% 0%, rgba(52,211,153,0.16), transparent 60%), var(--surface-1);
+    border:1px solid var(--hair);
+  }
+  .cta-band h2{font-size:32px;font-weight:700;letter-spacing:-0.02em;margin:0 0 14px;}
+  .cta-band p{font-size:16px;color:var(--text-2);max-width:520px;margin:0 auto 30px;line-height:1.5;}
+  .cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--emerald);color:#062018;font-weight:700;font-size:15px;
+    padding:14px 28px;border-radius:100px;text-decoration:none;
+  }
+  .btn-secondary{
+    background:transparent;color:var(--text-1);font-weight:600;font-size:15px;
+    padding:14px 28px;border-radius:100px;text-decoration:none;border:1px solid var(--hair-2);
+  }
+  .tier-cta{
+    display:block;text-align:center;margin-top:20px;padding:12px 0;border-radius:100px;
+    font-weight:700;font-size:14px;text-decoration:none;
+  }
+  .tier-cta.primary{background:var(--emerald);color:#062018;}
+  .tier-cta.outline{background:transparent;color:var(--text-1);border:1px solid var(--hair-2);}
+
+  footer{margin-top:60px;text-align:center;color:var(--text-3);font-size:12.5px;line-height:1.7;}
+  footer .footer-link{color:var(--emerald);font-weight:600;text-decoration:none;}
+  footer .footer-link:hover{text-decoration:underline;}
+
+  @media (max-width:760px){
+    .hero h1{font-size:36px;}
+    .hero p.sub{font-size:16px;}
+    .split{grid-template-columns:1fr;}
+    .score-grid{grid-template-columns:1fr;}
+    .cards{grid-template-columns:1fr;}
+    .cards.two{grid-template-columns:1fr;}
+    .tiers{grid-template-columns:1fr;}
+    .pillar-name{flex-basis:120px;}
+    .cta-band{padding:44px 24px;}
+    .nav{flex-wrap:wrap;gap:10px;padding:16px 20px;}
+    .nav-right{gap:12px;}
+    .nav .cta{padding:8px 14px;font-size:12px;}
+    .nav-source{font-size:12px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="brand"><b>Reachium</b> &nbsp;·&nbsp; AI Visibility & Readiness</div>
+  <div class="nav-right">
+    <a class="nav-source" href="https://agentbuyable.ai" target="_blank" rel="noopener">agentbuyable.ai</a>
+    <a class="cta" href="#plan">View growth plan</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">Prepared by AgentBuyable</div>
+    <h1>Two identities.<br><span>Zero category visibility.</span></h1>
+    <p class="sub">We tested Reachium across ChatGPT, Gemini, and Perplexity. The platforms disagree on what Reachium even is, and none of them recommend it when a buyer searches the category.</p>
+  </section>
+
+  <div class="split">
+    <div class="split-panel win">
+      <div class="split-label">When asked by name</div>
+      <div class="split-q">What is reachium.io and what do they do?</div>
+      <div class="split-stat">33%</div>
+      <div class="split-sub">Correctly identified as a LinkedIn native outreach platform, by only one of three AI platforms</div>
+      <div class="plat-row">
+        <div class="plat-chip"><span class="dot"></span>Perplexity &mdash; correctly identified</div>
+        <div class="plat-chip"><span class="dot"></span>Gemini &mdash; misidentified</div>
+        <div class="plat-chip"><span class="dot"></span>ChatGPT &mdash; misidentified</div>
+      </div>
+    </div>
+    <div class="split-panel lose">
+      <div class="split-label">When asked by category</div>
+      <div class="split-q">What are the best LinkedIn outreach automation tools for B2B sales teams?</div>
+      <div class="split-stat">0%</div>
+      <div class="split-sub">Not recommended, any platform, any test</div>
+      <div class="plat-row">
+        <div class="plat-chip"><span class="dot"></span>Expandi recommended</div>
+        <div class="plat-chip"><span class="dot"></span>Octopus CRM recommended</div>
+        <div class="plat-chip"><span class="dot"></span>Dripify recommended</div>
+        <div class="plat-chip"><span class="dot"></span>HeyReach recommended</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- READINESS SCORE -->
+  <section class="block">
+    <div class="block-head">
+      <h2>AI Readiness Score</h2>
+      <div class="tag">Based on 11 AEO & AI visibility metrics</div>
+    </div>
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-ring">
+          <canvas id="scoreRing"></canvas>
+          <div class="score-num"><b>26</b><span>Out of 100</span></div>
+        </div>
+        <p>This score reflects how ready Reachium is to be found, understood, recommended, and transacted with by AI today. A score in this range means the groundwork has not been laid yet, not that the opportunity is out of reach.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar-row"><div class="pillar-name">Brand Recognition</div><div class="pillar-track"><div class="pillar-fill" style="width:33%;background:var(--coral);"></div></div><div class="pillar-val">33%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Entity Schema Integrity</div><div class="pillar-track"><div class="pillar-fill" style="width:65%;background:var(--emerald);"></div></div><div class="pillar-val">65%</div></div>
+        <div class="pillar-row"><div class="pillar-name">AI Crawler Access</div><div class="pillar-track"><div class="pillar-fill" style="width:25%;background:var(--coral);"></div></div><div class="pillar-val">25%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Category Visibility</div><div class="pillar-track"><div class="pillar-fill" style="width:5%;background:var(--coral);"></div></div><div class="pillar-val">5%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Agentic Commerce (ACP/UCP)</div><div class="pillar-track"><div class="pillar-fill" style="width:30%;background:var(--coral);"></div></div><div class="pillar-val">30%</div></div>
+        <div class="pillar-row"><div class="pillar-name">Entity Signal Assessment</div><div class="pillar-track"><div class="pillar-fill" style="width:5%;background:var(--coral);"></div></div><div class="pillar-val">5%</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIBILITY VS COMPETITORS -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Visibility vs. Competitors</h2>
+      <div class="tag">Simulated share of voice, category queries</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-wrap"><canvas id="competitorChart"></canvas></div>
+      <div class="chart-note">Simulated share of voice across ChatGPT, Gemini, and Perplexity for “best LinkedIn outreach automation tools” queries. Expandi and Octopus CRM appeared in all three tests. Reachium appeared in none.</div>
+    </div>
+  </section>
+
+  <!-- SENTIMENT / PLATFORM BREAKDOWN + CITATIONS -->
+  <section class="block">
+    <div class="block-head">
+      <h2>Platform-by-Platform Detail</h2>
+      <div class="tag">Prompt Simulator, ChatGPT, Gemini, and Perplexity</div>
+    </div>
+    <div class="cards two">
+      <div class="mcard">
+        <div class="mhead"><h3>Sentiment When Mentioned</h3><span class="badge ok">Favorable</span></div>
+        <p>The only place Reachium was actually mentioned was the head to head comparison against Expandi, and Perplexity's sentiment there was favorable, calling Reachium the safer, more modern choice on account safety and its API-based architecture. That result never surfaces because it only shows up when a buyer already has both names in front of them.</p>
+      </div>
+      <div class="mcard">
+        <div class="mhead"><h3>Top Performing Topic</h3><span class="badge info">Comparison Query</span></div>
+        <p>Reachium only appears in the “Reachium vs Expandi” comparison prompt. It does not surface in either the open-ended brand-identity prompt or the category prompt on its own.</p>
+      </div>
+    </div>
+    <div class="mcard" style="margin-top:16px;">
+      <div class="mhead"><h3>Most-Cited Domains — Category Question Only</h3><span class="badge warn">Citations</span></div>
+      <ul class="citelist">
+        <li><span class="domain">expandi.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">octopuscrm.io</span><span class="count">3 citations</span></li>
+        <li><span class="domain">dripify.io</span><span class="count">2 citations</span></li>
+        <li><span class="domain">dux-soup.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">lemlist.com</span><span class="count">2 citations</span></li>
+        <li><span class="domain">heyreach.io</span><span class="count">1 citation</span></li>
+        <li><span class="domain self">reachium.io</span><span class="count">0 citations</span></li>
+      </ul>
+    </div>
+    <div class="mcard" style="margin-top:16px;">
+      <div class="mhead"><h3>Prompts Tested</h3><span class="badge info">Methodology</span></div>
+      <ul class="prompts-list">
+        <li><span class="prompt-label">Brand identity</span><span class="prompt-quote">&ldquo;What is reachium.io and what do they do?&rdquo;</span></li>
+        <li><span class="prompt-label">Category</span><span class="prompt-quote">&ldquo;What are the best LinkedIn outreach automation tools for B2B sales teams?&rdquo;</span></li>
+        <li><span class="prompt-label">Comparison</span><span class="prompt-quote">&ldquo;Compare Reachium vs Expandi&rdquo;</span></li>
+      </ul>
+    </div>
+    <div class="mcard" style="margin-top:16px;">
+      <div class="mhead"><h3>How We Test</h3><span class="badge info">Methodology</span></div>
+      <p>Every platform above is queried in a neutral, non-personalized search state, the same blank-slate encounter a stranger who has never heard of this business would get, with no saved location, browsing history, or account history involved. Testing it yourself in your own browser can return a different, more favorable answer, since personal search history, location, and account context can help a platform resolve an ambiguous or similarly-named business correctly. This audit measures what AI does without that help, since that is what most new customers researching a business for the first time will actually experience. A platform defaulting to a different, similarly-named business in this neutral state points to a real entity authority gap, not a personalization gap.</p>
+    </div>
+  </section>
+  <section class="block">
+    <div class="block-head">
+      <h2>Technical Roadblocks</h2>
+      <div class="tag">A full technical crawl, plus a live Agent Interaction Layer check</div>
+    </div>
+    <div class="cards">
+      <div class="mcard">
+        <div class="mhead"><h3>Entity Schema Health</h3><span class="badge ok">Good foundation</span></div>
+        <div class="big">Organization + 6 sameAs links</div>
+        <p>Valid Organization and WebSite schema is in place, with sameAs links to LinkedIn, YouTube, Instagram, Facebook, Trustpilot, and the App Store. A real strength. No Product, Service, or Offer schema exists yet, which is what the Agentic Commerce Readiness gap below is about.</p>
+      </div>
+      <div class="mcard">
+        <div class="mhead"><h3>AI Crawler Access</h3><span class="badge warn">Underdeveloped</span></div>
+        <div class="big">Barebone</div>
+        <p>robots.txt allows all crawlers with a blanket rule, but does not explicitly and deliberately name or welcome the AI crawlers behind ChatGPT, Perplexity, or Google's AI Mode. Nothing is blocked, but nothing is being deliberately invited either.</p>
+      </div>
+      <div class="mcard">
+        <div class="mhead"><h3>Agent Interaction Layer</h3><span class="badge warn">1 of 4 Found</span></div>
+        <div class="big">1 of 4</div>
+        <p>No ACP endpoint, UCP endpoint, or legacy AI plugin manifest exists. Reachium does have a genuinely well authored llms.txt, real business description, pricing, case study, and comparison links, not the thin auto-generated version most sites carry. That's a better starting point than most prospects have, but it's still a content index, not a transaction endpoint an agent can book through.</p>
+      </div>
+      <div class="mcard">
+        <div class="mhead"><h3>Entity Signal Assessment</h3><span class="badge warn">Not Found</span></div>
+        <div class="big">0 of 5</div>
+        <p>Across all three prompts tested, brand identity, category, and comparison, no response cited Wikipedia, G2, Capterra, Crunchbase, or Reddit in connection with Reachium. None of these third-party validation sources are currently feeding into how AI talks about the brand.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GROWTH PLAN -->
+  <section class="block" id="plan">
+    <div class="block-head">
+      <h2>The AEO Growth Plan</h2>
+      <div class="tag">Turning today's blindspot into tomorrow's advantage</div>
+    </div>
+    <div class="tiers">
+      <div class="tier reco">
+        <h3>NEO</h3>
+        <div class="price">$750/mo</div>
+        <div class="tagline">Get Discovered by AI</div>
+        <ul>
+          <li>AI crawler access opened deliberately for GPTBot, Claude-Web, PerplexityBot &amp; more</li>
+          <li>Structured data expanded and corrected so every AI platform describes Reachium the same, correct way, at the right domain</li>
+          <li>Entity signal building toward third party validation sources like G2 and Crunchbase</li>
+          <li>1-2 AEO content pieces/mo, newly created or strategically upgraded depending on what your existing content needs</li>
+          <li>Monthly AI-Readiness &amp; Visibility Report</li>
+        </ul>
+        <a class="tier-cta reco" href="https://buy.stripe.com/28E00jdTE0IPbHP06QeZ20p" target="_blank" rel="noopener">Start with NEO</a>
+      </div>
+      <div class="tier ">
+        <h3>ORACLE</h3>
+        <div class="price">$3,500/mo</div>
+        <div class="tagline">Shape the Narrative</div>
+        <ul>
+          <li>Basic ACP integration: agents query pricing &amp; plan availability</li>
+          <li>Basic UCP integration for commerce interoperability</li>
+          <li>4-6 AEO content pieces/mo, newly created or strategically upgraded, targeting comparison &amp; “vs” queries like Reachium vs Expandi</li>
+          <li>High-authority digital PR &amp; entity link building toward G2, Capterra &amp; Crunchbase</li>
+          <li>Bi-weekly visibility audits across ChatGPT, Claude, Gemini, Perplexity</li>
+        </ul>
+        <a class="tier-cta " href="https://buy.stripe.com/00wcN5dTE8bheU17zieZ20q" target="_blank" rel="noopener">Start with ORACLE</a>
+      </div>
+      <div class="tier ">
+        <h3>ARCHITECT</h3>
+        <div class="price">$7,500/mo</div>
+        <div class="tagline">Own Your Market</div>
+        <ul>
+          <li>Enterprise ACP: large-catalog pricing &amp; inventory APIs, agent checkout</li>
+          <li>Enterprise UCP: full storefront sync with commerce networks</li>
+          <li>Custom knowledge graph &amp; deep topical authority mapping</li>
+          <li>Real-time visibility monitoring, always on</li>
+          <li>Dedicated AI strategy partner, weekly sessions</li>
+        </ul>
+        <a class="tier-cta " href="https://buy.stripe.com/dRm6oH3f0bntfY53j2eZ20r" target="_blank" rel="noopener">Start with ARCHITECT</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Close the gap before Expandi becomes the default answer for good.</h2>
+    <p>Every week this goes unaddressed is another week AI points buyers toward Expandi, Octopus CRM, and HeyReach instead of Reachium, and another week two of three AI platforms describe Reachium incorrectly.</p>
+    <div class="cta-buttons">
+      <a class="btn-primary" id="bottomCtaBtn" href="#" target="_blank" rel="noopener">Start with NEO</a>
+      <a class="btn-secondary" href="https://strativa-ai.com/book-a-call-strativa" target="_blank" rel="noopener">Talk to our team</a>
+    </div>
+  </div>
+
+  <footer>
+    Prepared by <a href="https://agentbuyable.ai" target="_blank" rel="noopener" class="footer-link">AgentBuyable</a> (agentbuyable.ai) for Reachium, based on a live scan of reachium.io across ChatGPT, Gemini, and Perplexity.<br>
+    Findings reflect a point-in-time snapshot. AI visibility shifts continuously.
+  </footer>
+
+</div>
+
+<script>
+  // Bottom CTA band always mirrors whichever tier card is marked as recommended
+  // (the card with the "reco" class), so this can never fall out of sync with
+  // the actual Tier Recommendation Rubric output for this report.
+  // GENERIC SCRIPT — do not edit per prospect. Only the {{RECO_TIER_CLASS_*}}
+  // tokens above (which of the three tier divs actually has "reco") change.
+  (function syncBottomCta() {
+    const recoCard = document.querySelector('.tier.reco');
+    const bottomBtn = document.getElementById('bottomCtaBtn');
+    if (!recoCard || !bottomBtn) return;
+    const tierName = recoCard.querySelector('h3')?.textContent?.trim();
+    const tierCta = recoCard.querySelector('.tier-cta');
+    if (tierName) bottomBtn.textContent = 'Start with ' + tierName;
+    if (tierCta) bottomBtn.href = tierCta.href;
+  })();
+
+  // NOTE: skill1_searchatlas_execution_guide.md calls for the score ring and
+  // competitor chart to be wrapped in a single try/catch so a Chart.js CDN
+  // failure only blanks these two canvases. The approved Dream E Waste source
+  // this template was built from does NOT have that try/catch. Flagged and
+  // knowingly kept as-is per the account owner's explicit instruction on
+  // 2026-07-28 ("what was sent to the client is the way it should be").
+  // Score ring
+  const ringCtx = document.getElementById('scoreRing');
+  new Chart(ringCtx, {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: [26, 74],
+        backgroundColor: ['#FF6B4A', 'rgba(255,255,255,0.06)'],
+        borderWidth: 0,
+        cutout: '78%'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { enabled: false } },
+      rotation: -90,
+      circumference: 360
+    }
+  });
+
+  // Competitor visibility chart
+  const compCtx = document.getElementById('competitorChart');
+  const auditedName = 'Reachium'; // the domain this report is auditing, must match its exact label below
+  const labels = ["Reachium","Expandi","Octopus CRM","Dripify","Dux-Soup","HeyReach"];
+  const values = [0,100,100,67,67,33];
+
+  // The audited domain always gets the coral "subject of this report" color.
+  // Every other bar cycles through a fixed competitor palette by position among
+  // competitors only, so the audited bar's color never depends on where it
+  // happens to sit in the array (e.g. if a future report sorts bars by score).
+  const auditedColor = '#FF6B4A';
+  const competitorPalette = ['#5AA6FF', '#FFC24B', '#B48CFF', '#4FD1C5', '#34D399', '#FF8A5C'];
+  let competitorIndex = 0;
+  const barColors = labels.map(l =>
+    l === auditedName ? auditedColor : competitorPalette[competitorIndex++ % competitorPalette.length]
+  );
+
+  new Chart(compCtx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: barColors,
+        borderRadius: 8,
+        maxBarThickness: 56
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          grid: { color: 'rgba(255,255,255,0.06)' },
+          ticks: { color: '#D5D5DA', font: { size: 11 } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: '#F5F5F7', font: { size: 12, weight: '600' } }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
